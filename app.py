@@ -45,8 +45,9 @@ if uploaded_files:
         modd = pivot.diff(axis=1).abs().mean(axis=1).mean()
 
         df['delta'] = df['glucose_mmol'].diff()
-        df['delta_time'] = df['datetime'].diff().dt.total_seconds() / 3600
-        df['rate'] = df['delta'].abs() / df['delta_time']
+df['delta_time'] = df['datetime'].diff().dt.total_seconds() / 3600
+df = df[df['delta_time'] != 0]  # avoid division by zero
+df['rate'] = df['delta'].abs() / df['delta_time']
         mag = df['rate'].dropna().mean()
 
         j_index = 0.001 * (mean_glucose + std_glucose)**2
