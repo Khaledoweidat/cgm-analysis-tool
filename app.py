@@ -8,7 +8,7 @@ from io import BytesIO
 
 st.title("📈 CGM Data Analysis Tool (Batch Version)")
 st.markdown("**Note:** Estimated HbA1c (mmol/mol) is calculated from GMI using the formula:")
-st.latex(r"	ext{HbA1c (mmol/mol)} = (	ext{GMI} - 2.15) 	imes 10.929")} = (	ext{GMI} - 2.15) 	imes 10.929 \)")
+st.latex(r"	ext{HbA1c (mmol/mol)} = (	ext{GMI} - 2.15) 	imes 10.929")} = (	ext{GMI} - 2.15) 	imes 10.929")} = (	ext{GMI} - 2.15) 	imes 10.929 \)")
 
 uploaded_files = st.file_uploader("Upload one or more CGM CSV or Excel files", type=["csv", "xls", "xlsx"], accept_multiple_files=True)
 
