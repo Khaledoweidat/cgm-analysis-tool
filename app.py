@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 
 st.title("📈 CGM Data Analysis Tool (Batch Version)")
+st.markdown("**Note:** Estimated HbA1c (mmol/mol) is calculated from GMI using the formula:")
+st.markdown(r"\( 	ext{HbA1c (mmol/mol)} = (	ext{GMI} - 2.15) 	imes 10.929 \)")} = (	ext{GMI} - 2.15) 	imes 10.929 \)")
 
 uploaded_files = st.file_uploader("Upload one or more CGM CSV or Excel files", type=["csv", "xls", "xlsx"], accept_multiple_files=True)
 
@@ -81,7 +83,7 @@ if uploaded_files:
             'Standard Deviation (mmol/L)': round(std_glucose, 2),
             'CV (%)': round(cv_percent, 2),
             'GMI (US %)': round(gmi, 2),
-            'GMI (UK mmol/mol)': round(gmi_hba1c_mmol_mol, 0),
+            'Estimated HbA1c (mmol/mol)': round(gmi_hba1c_mmol_mol, 0),
             'GMI Variability (%)': round(gmi_var, 2),
             'Time in Range (3.9–10.0 mmol/L) %': round(tir, 2),
             'Time in Tight Range (3.9–7.8 mmol/L) %': round(titr, 2),
