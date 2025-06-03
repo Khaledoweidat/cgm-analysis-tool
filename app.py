@@ -83,7 +83,7 @@ if uploaded_files:
             'Standard Deviation (mmol/L)': round(std_glucose, 2),
             'CV (%)': round(cv_percent, 2),
             'GMI (US %)': round(gmi, 2),
-            'Estimated HbA1c (mmol/mol)': round(gmi_hba1c_mmol_mol, 0),
+            'Estimated HbA1c (mmol/mol)': round((round(gmi, 2) - 2.15) * 10.929, 0),
             'GMI Variability (%)': round(gmi_var, 2),
             'Time in Range (3.9–10.0 mmol/L) %': round(tir, 2),
             'Time in Tight Range (3.9–7.8 mmol/L) %': round(titr, 2),
