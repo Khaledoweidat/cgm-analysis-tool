@@ -73,9 +73,17 @@ if uploaded_files:
         df['risk'] = df['glucose_mmol'].apply(risk_score)
         gri = df['risk'].mean()
 
-        full_duration_min = (df['datetime'].max() - df['datetime'].min()).total_seconds() / 60
-        expected_readings = full_duration_min / 15
-        sensor_use_percent = df.shape[0] / expected_readings * 100
+        d = df.dropna(subset=['datetime']).copy()
+        d = d.drop_duplicates(subset=['datetime']).sort_values('datetime')
+
+        gap_min = d['datetime'].diff().dt.total_seconds().div(60)
+
+        # Count time only when the next reading arrives within a reasonable gap.
+        # Threshold: <= 30 min (2×15) is a common choice.
+        worn_min = gap_min.where(gap_min <= 30, 0).sum()
+
+        full_duration_min = (d['datetime'].max() - d['datetime'].min()).total_seconds() / 60
+        sensor_use_percent = (worn_min / full_duration_min) * 100
 
         # Collect results per file
         results = {
@@ -114,4 +122,5 @@ if uploaded_files:
     output = BytesIO()
     results_df.to_excel(output, index=False)
     st.download_button("Download Summary as Excel", data=output.getvalue(), file_name="CGM_summary.xlsx", mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
 
