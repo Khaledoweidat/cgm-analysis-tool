@@ -74,7 +74,7 @@ if uploaded_files:
         gri = df['risk'].mean()
 
         full_duration_min = (df['datetime'].max() - df['datetime'].min()).total_seconds() / 60
-        expected_readings = full_duration_min / 5
+        expected_readings = full_duration_min / 15
         sensor_use_percent = df.shape[0] / expected_readings * 100
 
         # Collect results per file
@@ -114,3 +114,4 @@ if uploaded_files:
     output = BytesIO()
     results_df.to_excel(output, index=False)
     st.download_button("Download Summary as Excel", data=output.getvalue(), file_name="CGM_summary.xlsx", mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
